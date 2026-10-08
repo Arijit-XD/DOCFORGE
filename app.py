@@ -1369,12 +1369,40 @@ section[data-testid="stMain"] textarea::placeholder {
     opacity: 1 !important;
 }
 
-/* Buttons keep their intended white text */
+/* Make all important action/upload/download buttons visibly clickable.
+   The broad main-container color rule above otherwise makes Streamlit's
+   white/default buttons blend into the light workspace. */
 [data-testid="stMain"] button,
-section[data-testid="stMain"] button,
+section[data-testid="stMain"] button {
+    color: #ffffff !important;
+}
+
+[data-testid="stMain"] [data-testid="stDownloadButton"] button,
+section[data-testid="stMain"] [data-testid="stDownloadButton"] button,
 [data-testid="stMain"] .stDownloadButton button,
 section[data-testid="stMain"] .stDownloadButton button {
+    background: linear-gradient(135deg,#2f6df6,#5b4ee8) !important;
     color: #ffffff !important;
+    border: 1px solid #2458d8 !important;
+    box-shadow: 0 4px 12px rgba(47,109,246,.18) !important;
+}
+
+/* Streamlit's file uploader uses a button inside the dropzone. */
+[data-testid="stMain"] [data-testid="stFileUploaderDropzone"] button,
+section[data-testid="stMain"] [data-testid="stFileUploaderDropzone"] button,
+[data-testid="stMain"] [data-testid="stFileUploader"] button,
+section[data-testid="stMain"] [data-testid="stFileUploader"] button {
+    background: #2f6df6 !important;
+    color: #ffffff !important;
+    border: 1px solid #2458d8 !important;
+    border-radius: 9px !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stMain"] [data-testid="stFileUploaderDropzone"],
+section[data-testid="stMain"] [data-testid="stFileUploaderDropzone"] {
+    background: #ffffff !important;
+    border: 1px dashed #9db6e8 !important;
 }
 
 /* Radio/checkbox/select/file-upload labels */
@@ -1540,6 +1568,14 @@ if conversion_mode == "Normal Document":
             st.info("📝 Word detected: the original Word formatting and tables are retained as far as the Word format allows, with the standard branding added.")
         else:
             st.info("📄 Text detected: the text will be laid out cleanly using the same page, heading and watermark configuration.")
+    st.download_button(
+        "📋 Download Sample TXT Document",
+        data="XD DOC FORGE — Sample Document\n\nThis is a sample text document for testing the Normal Document converter.\n\nYou can replace this text with your own content and upload the resulting .txt file.",
+        file_name="XD_DOC_FORGE_Sample_Document.txt",
+        mime="text/plain",
+        use_container_width=True,
+        key="download_normal_sample_txt",
+    )
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="card" style="margin-top:16px;">', unsafe_allow_html=True)
