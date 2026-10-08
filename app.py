@@ -1317,69 +1317,89 @@ div.stDownloadButton > button {
     .hero h1 { font-size:28px; }
 }
 
-/* Streamlit Cloud/theme compatibility: keep the main workspace readable
-   even when the viewer/browser is using a dark Streamlit theme. */
+/* Streamlit Cloud/theme compatibility: force readable colors in the main workspace.
+   Streamlit theme variables can override component text colors, so use the
+   current main-container testids as well as the legacy .main selector. */
+[data-testid="stMain"],
+[data-testid="stMainBlockContainer"],
+section[data-testid="stMain"],
+section.main,
 [data-testid="stAppViewContainer"] {
+    color: #16243a !important;
+}
+[data-testid="stMain"],
+section[data-testid="stMain"],
+section.main {
     background: #f6f8fc !important;
 }
-[data-testid="stAppViewContainer"] .main {
-    background: transparent !important;
-}
-[data-testid="stAppViewContainer"] .main .block-container {
+
+/* Base text: intentionally broad because Streamlit's generated labels may
+   not carry stable individual class names across versions. */
+[data-testid="stMain"] *,
+section[data-testid="stMain"] *,
+section.main * {
     color: #16243a !important;
 }
-[data-testid="stAppViewContainer"] .main p,
-[data-testid="stAppViewContainer"] .main li,
-[data-testid="stAppViewContainer"] .main label,
-[data-testid="stAppViewContainer"] .main [data-testid="stWidgetLabel"],
-[data-testid="stAppViewContainer"] .main [data-testid="stWidgetLabel"] *,
-[data-testid="stAppViewContainer"] .main [data-testid="stMarkdownContainer"],
-[data-testid="stAppViewContainer"] .main [data-testid="stMarkdownContainer"] *,
-[data-testid="stAppViewContainer"] .main h1,
-[data-testid="stAppViewContainer"] .main h2,
-[data-testid="stAppViewContainer"] .main h3,
-[data-testid="stAppViewContainer"] .main h4,
-[data-testid="stAppViewContainer"] .main h5,
-[data-testid="stAppViewContainer"] .main h6 {
-    color: #16243a !important;
-}
-[data-testid="stAppViewContainer"] .main .stCaption,
-[data-testid="stAppViewContainer"] .main [data-testid="stCaptionContainer"],
-[data-testid="stAppViewContainer"] .main [data-testid="stCaptionContainer"] * {
+
+/* Secondary/help text */
+[data-testid="stMain"] [data-testid="stCaptionContainer"],
+[data-testid="stMain"] [data-testid="stCaptionContainer"] *,
+section[data-testid="stMain"] [data-testid="stCaptionContainer"],
+section[data-testid="stMain"] [data-testid="stCaptionContainer"] * {
     color: #68758b !important;
 }
 
 /* Form controls */
-[data-testid="stAppViewContainer"] .main input,
-[data-testid="stAppViewContainer"] .main textarea,
-[data-testid="stAppViewContainer"] .main [role="combobox"],
-[data-testid="stAppViewContainer"] .main [data-baseweb="select"] > div {
+[data-testid="stMain"] input,
+[data-testid="stMain"] textarea,
+[data-testid="stMain"] [role="combobox"],
+[data-testid="stMain"] [data-baseweb="select"] > div,
+section[data-testid="stMain"] input,
+section[data-testid="stMain"] textarea,
+section[data-testid="stMain"] [role="combobox"],
+section[data-testid="stMain"] [data-baseweb="select"] > div {
     color: #16243a !important;
     background-color: #ffffff !important;
 }
-[data-testid="stAppViewContainer"] .main input::placeholder,
-[data-testid="stAppViewContainer"] .main textarea::placeholder {
+[data-testid="stMain"] input::placeholder,
+[data-testid="stMain"] textarea::placeholder,
+section[data-testid="stMain"] input::placeholder,
+section[data-testid="stMain"] textarea::placeholder {
     color: #8a95a8 !important;
     opacity: 1 !important;
 }
-[data-testid="stAppViewContainer"] .main [data-baseweb="select"] *,
-[data-testid="stAppViewContainer"] .main [role="option"] {
-    color: #16243a !important;
-}
-[data-testid="stAppViewContainer"] .main [role="radiogroup"] label,
-[data-testid="stAppViewContainer"] .main [role="radiogroup"] label * {
-    color: #16243a !important;
-}
-[data-testid="stAppViewContainer"] .main [data-testid="stFileUploader"] *,
-[data-testid="stAppViewContainer"] .main [data-testid="stFileUploaderDropzone"] * {
-    color: #16243a !important;
-}
-[data-testid="stAppViewContainer"] .main .stButton button,
-[data-testid="stAppViewContainer"] .main .stDownloadButton button {
+
+/* Buttons keep their intended white text */
+[data-testid="stMain"] button,
+section[data-testid="stMain"] button,
+[data-testid="stMain"] .stDownloadButton button,
+section[data-testid="stMain"] .stDownloadButton button {
     color: #ffffff !important;
 }
-[data-testid="stAppViewContainer"] .main [data-testid="stExpander"] summary,
-[data-testid="stAppViewContainer"] .main [data-testid="stExpander"] summary * {
+
+/* Radio/checkbox/select/file-upload labels */
+[data-testid="stMain"] [role="radiogroup"] label,
+[data-testid="stMain"] [role="radiogroup"] label *,
+[data-testid="stMain"] [role="checkbox"] label,
+[data-testid="stMain"] [role="checkbox"] label *,
+[data-testid="stMain"] [data-testid="stWidgetLabel"],
+[data-testid="stMain"] [data-testid="stWidgetLabel"] *,
+[data-testid="stMain"] [data-testid="stFileUploader"] *,
+[data-testid="stMain"] [data-testid="stFileUploaderDropzone"] *,
+section[data-testid="stMain"] [role="radiogroup"] label,
+section[data-testid="stMain"] [role="radiogroup"] label *,
+section[data-testid="stMain"] [data-testid="stWidgetLabel"],
+section[data-testid="stMain"] [data-testid="stWidgetLabel"] *,
+section[data-testid="stMain"] [data-testid="stFileUploader"] *,
+section[data-testid="stMain"] [data-testid="stFileUploaderDropzone"] * {
+    color: #16243a !important;
+}
+
+/* Expander text */
+[data-testid="stMain"] [data-testid="stExpander"] summary,
+[data-testid="stMain"] [data-testid="stExpander"] summary *,
+section[data-testid="stMain"] [data-testid="stExpander"] summary,
+section[data-testid="stMain"] [data-testid="stExpander"] summary * {
     color: #16243a !important;
 }
 
